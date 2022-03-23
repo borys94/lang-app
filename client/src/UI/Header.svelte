@@ -1,8 +1,15 @@
 <script>
-  import Menu from "./Menu.svelte"
+  import Menu from "./Menu/Menu.svelte";
 
-  let isMenuOpen = false
+  let isMenuOpen = false;
 </script>
+
+{#if isMenuOpen}
+  <Menu bind:isOpen={isMenuOpen} />
+{/if}
+<div class="header-container">
+  <i class="eva eva-menu" on:click={() => (isMenuOpen = !isMenuOpen)} />
+</div>
 
 <style>
   .header-container {
@@ -20,11 +27,3 @@
     cursor: pointer;
   }
 </style>
-
-{#if isMenuOpen}
-  <Menu bind:isOpen={isMenuOpen} />
-{/if}
-<div class="header-container">
-  <i class="eva eva-menu" on:click={() => isMenuOpen = !isMenuOpen}/>
-  <i class="eva eva-person-outline"></i>
-</div>

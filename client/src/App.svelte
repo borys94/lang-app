@@ -1,26 +1,37 @@
 <script>
-  import {onMount} from "svelte";
-  import { Spinner } from 'sveltestrap';
-  import {fade} from "svelte/transition"
+  import { onMount } from "svelte";
+  import { Spinner } from "sveltestrap";
+  import { fade } from "svelte/transition";
 
   import Api from "./services/api";
   import userStore from "./stores/user";
   import Navigation from "./services/navigation";
 
   import Header from "./UI/Header.svelte";
-  import Routes from "./Routes.svelte"
+  import Routes from "./Routes.svelte";
 
   let loading = true;
   onMount(async () => {
-    const {currentUser} = await Api.getCurrentUser();
+    const { currentUser } = await Api.getCurrentUser();
     if (currentUser) {
       userStore.signIn(currentUser);
     } else {
       Navigation.goToLogin();
     }
-    loading = false
-  })
+    loading = false;
+  });
 </script>
+
+{#if loading}
+  <div class="loader-container" out:fade={{ duration: 200 }}>
+    <Spinner color="dark" />
+  </div>
+{:else}
+  {#if $userStore.id}
+    <Header />
+  {/if}
+  <Routes />
+{/if}
 
 <style>
   .loader-container {
@@ -36,14 +47,3 @@
     background-color: white;
   }
 </style>
-
-{#if loading}
-  <div class="loader-container" out:fade={{duration: 200}}>
-    <Spinner color="dark" />
-  </div>
-{:else}
-  {#if $userStore.id}
-    <Header />
-  {/if}
-  <Routes />
-{/if}

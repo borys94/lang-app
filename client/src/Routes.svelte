@@ -1,7 +1,7 @@
 <script>
-  import Router from 'svelte-spa-router';
-  import {wrap} from 'svelte-spa-router/wrap'
-  
+  import Router from "svelte-spa-router";
+  import { wrap } from "svelte-spa-router/wrap";
+
   import Training from "./views/Training.svelte";
   import Lesson from "./views/Lesson.svelte";
   import Home from "./views/Home.svelte";
@@ -13,28 +13,28 @@
   import Navigation from "./services/navigation";
 
   const routes = {
-    '/': wrap({
+    "/": wrap({
       component: Home,
-      conditions: [() => userStore.isLogged()]
+      conditions: [() => userStore.isLogged()],
     }),
-    '/training': wrap({
+    "/training": wrap({
       component: Training,
-      conditions: [() => userStore.isLogged()]
+      conditions: [() => userStore.isLogged()],
     }),
-    '/lesson': wrap({
+    "/lesson": wrap({
       component: Lesson,
-      conditions: [() => userStore.isLogged()]
+      conditions: [() => userStore.isLogged()],
     }),
-    '/login': wrap({
+    "/login": wrap({
       component: Login,
-      conditions: [() => !userStore.isLogged()]
+      conditions: [() => !userStore.isLogged()],
     }),
-    '/register': wrap({
+    "/register": wrap({
       component: Register,
-      conditions: [() => !userStore.isLogged()]
+      conditions: [() => !userStore.isLogged()],
     }),
-    '*': NotFound,
-  }
+    "*": NotFound,
+  };
 
   const onConditionsFailed = (event) => {
     if (["/login", "/register"].includes(event.detail.route)) {
@@ -42,7 +42,7 @@
     } else {
       Navigation.goToLogin();
     }
-  }
+  };
 </script>
 
-<Router {routes} on:conditionsFailed={onConditionsFailed}/>
+<Router {routes} on:conditionsFailed={onConditionsFailed} />

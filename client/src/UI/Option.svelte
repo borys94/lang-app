@@ -1,3 +1,7 @@
+<div class="container">
+  <slot />
+</div>
+
 <style>
   .container {
     height: 150px;
@@ -13,7 +17,7 @@
     display: flex;
     box-shadow: 0 0 20px #ddd;
     background-color: white;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +25,3 @@
     font-size: 30px;
   }
 </style>
-
-<div class="container">
-  <slot />
-</div>

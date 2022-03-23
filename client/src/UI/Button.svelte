@@ -1,13 +1,13 @@
-
-
 <script>
-
-
 </script>
+
+<button>
+  <slot />
+</button>
 
 <style>
   button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4caf50; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -17,10 +17,4 @@
     font-size: 22px;
     width: 200px;
   }
-
 </style>
-
-
-<button>
-  <slot />
-</button>
