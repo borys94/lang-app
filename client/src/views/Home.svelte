@@ -1,20 +1,33 @@
 <script>
   import { fade } from "svelte/transition";
 
-  import Card from "../UI/Card.svelte";
-  import Option from "../UI/Option.svelte";
+  import DailyTrainingBox from "../components/Home/DailyTrainingBox.svelte";
+  import LessonsBox from "../components/Home/LessonsBox.svelte";
+  import UserInfo from "../components/Home/UserInfo.svelte";
+  import DifficultWords from "../components/Home/DifficultWords.svelte";
+
+  import navigation from "../services/navigation";
 </script>
 
 <div in:fade={{ duration: 200 }} class="home-view">
-  <Option>Daily training</Option>
-  <Option>Lessons</Option>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <UserInfo on:click={() => navigation.goToUser()} />
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <DailyTrainingBox on:click={() => navigation.goToTraining()} />
+        <LessonsBox on:click={() => navigation.goToLessons()} />
+        <DifficultWords on:click={() => navigation.goToTraining()} />
+      </div>
+    </div>
+  </div>
 </div>
 
 <style>
   .home-view {
     display: flex;
     flex-direction: column;
-    margin: 10px;
     justify-content: center;
     align-items: center;
   }

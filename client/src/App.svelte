@@ -30,10 +30,15 @@
   {#if $userStore.id}
     <Header />
   {/if}
-  <Routes />
+  <div class="main-view">
+    <Routes />
+  </div>
 {/if}
 
 <style>
+  .main-view {
+    margin-top: 50px;
+  }
   .loader-container {
     display: flex;
     justify-content: center;

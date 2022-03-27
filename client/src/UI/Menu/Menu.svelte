@@ -46,10 +46,10 @@
   on:click={() => (isOpen = false)}
 />
 
-<div transition:fly={{ duration: 200, x: -300 }} class="menu-container">
+<div transition:fly={{ duration: 200, x: 300 }} class="menu-container">
   <Header />
   <MenuItem on:click={() => goTo("/")}>Home</MenuItem>
-  <MenuItem on:click={() => goTo("/lesson")}>Lessons</MenuItem>
+  <MenuItem on:click={() => goTo("/lessons")}>Lessons</MenuItem>
   <MenuItem on:click={() => goTo("/training")}>Training</MenuItem>
   <Disclaimer />
   <MenuItem>Languages</MenuItem>
@@ -67,10 +67,11 @@
     align-items: center;
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: 50px;
     bottom: 0;
+    right: 0;
     background-color: white;
-    box-shadow: 0 -3px 8px rgb(0 0 0 / 25%);
+    box-shadow: 0 0 8px rgb(0 0 0 / 25%);
   }
 
   .background {

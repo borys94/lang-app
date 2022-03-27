@@ -2,11 +2,11 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background-color: #f1f5ff;
+	background-color: #f7f7f7 !important;
 }
 
 body {
-	color: #333;
+	color: #4D4D4D !important;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;

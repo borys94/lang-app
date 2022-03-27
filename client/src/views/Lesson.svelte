@@ -49,13 +49,6 @@
 </div>
 
 <style>
-  .container {
-    margin: 10px;
-  }
-  i {
-    color: green;
-  }
-
   .word {
     display: flex;
     margin: 5px 0;

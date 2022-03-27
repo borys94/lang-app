@@ -1,5 +1,6 @@
 <script>
   import Menu from "./Menu/Menu.svelte";
+  import navigation from "../services/navigation";
 
   let isMenuOpen = false;
 </script>
@@ -8,6 +9,7 @@
   <Menu bind:isOpen={isMenuOpen} />
 {/if}
 <div class="header-container">
+  <i class="eva eva-home-outline" on:click={() => navigation.goToHome()} />
   <i class="eva eva-menu" on:click={() => (isMenuOpen = !isMenuOpen)} />
 </div>
 
@@ -20,6 +22,12 @@
     align-items: center;
     padding: 0 10px;
     margin-bottom: 10px;
+    box-shadow: 0 0 27px -6px rgb(60 89 131 / 20%);
+    background-color: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
 
   i {
