@@ -1,5 +1,6 @@
 <script>
-  import { Button } from "sveltestrap";
+  // import { Button } from "sveltestrap";
+  import Button from "../UI/Button.svelte"
   import { fade } from "svelte/transition";
 
   import Box from "../UI/Box.svelte";
@@ -14,8 +15,8 @@
         <div>email:</div>
         <div>password: **********</div>
       </div>
-      <Button color="primary">Edit</Button>
-      <Button color="danger">Remove account</Button>
+      <Button color="blue">Edit</Button>
+      <Button color="green">Remove account</Button>
     </div>
   </Box>
 </div>

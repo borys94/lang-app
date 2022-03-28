@@ -1,5 +1,6 @@
 <script>
-  import { Button, Form, FormGroup, Input, Spinner } from "sveltestrap";
+  import { Form, FormGroup, Input, Spinner } from "sveltestrap";
+  import Button from "../UI/Button.svelte";
   import { fade } from "svelte/transition";
 
   import ErrorAlert from "../UI/ErrorAlert.svelte";
@@ -51,7 +52,7 @@
       <FormGroup floating label="Password">
         <Input placeholder="Password" type="password" bind:value={password} />
       </FormGroup>
-      <Button disabled={pending} block color="primary" on:click={signIn}>
+      <Button disabled={pending} block color="blue" on:click={signIn}>
         {#if pending}
           <Spinner color="light" />
         {:else}

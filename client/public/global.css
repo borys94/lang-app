@@ -5,6 +5,15 @@ html, body {
 	background-color: #f7f7f7 !important;
 }
 
+html {
+	--color-blue: #0084ff;
+  --color-green: #44bec7;
+  --color-yellow: #ffc300;
+  --color-red: #fa3c4c;
+  --color-purple: #d696bb;
+  --color-dark: #666666;
+}
+
 body {
 	color: #4D4D4D !important;
 	margin: 0;

@@ -13,6 +13,12 @@
   let loading = true;
   onMount(async () => {
     const { currentUser } = await Api.getCurrentUser();
+    // const currentUser = {
+    //   id: "1",
+    //   email: "email@gmail.com",
+    // };
+    // const currentUser = null
+    console.log(currentUser);
     if (currentUser) {
       userStore.signIn(currentUser);
     } else {

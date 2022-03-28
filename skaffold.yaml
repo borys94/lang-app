@@ -16,6 +16,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: cygnetops/vocabulary
+      context: vocabulary
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: cygnetops/client
       context: client
       docker:
@@ -23,4 +31,10 @@ build:
       sync:
         manual:
           - src: '**/*.js'
+            dest: .
+          - src: '**/*.css'
+            dest: .
+          - src: '**/*.svelte'
+            dest: .
+          - src: '**/*.min.js'
             dest: .

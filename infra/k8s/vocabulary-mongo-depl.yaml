@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vocabulary-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vocabulary-mongo
+  template:
+    metadata:
+      labels:
+        app: vocabulary-mongo
+    spec:
+      containers:
+        - name: vocabulary-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vocabulary-mongo-srv
+spec:
+  selector:
+    app: vocabulary-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

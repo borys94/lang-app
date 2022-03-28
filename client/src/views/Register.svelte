@@ -1,7 +1,8 @@
 <script>
-  import { Button, Form, FormGroup, Input, Spinner } from "sveltestrap";
+  import { Form, FormGroup, Input, Spinner } from "sveltestrap";
   import { fade } from "svelte/transition";
 
+  import Button from "../UI/Button.svelte";
   import ErrorAlert from "../UI/ErrorAlert.svelte";
 
   import Api from "../services/api";
@@ -47,7 +48,7 @@
       <FormGroup floating label="Password">
         <Input placeholder="Password" type="password" bind:value={password} />
       </FormGroup>
-      <Button block width="100%" color="primary" on:click={createAccount}>
+      <Button color="blue" on:click={createAccount}>
         {#if pending}
           <Spinner color="light" />
         {:else}
