@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "$services/*": ["./src/services/*"],
+      "$components/*": ["./src/components/*"],
+      "$stores/*": ["./src/stores/*"],
+      "$hooks/*": ["./src/hooks/*"],
+      "$routes/*": ["./src/routes/*"],
+      "$types/*": ["./src/types/*"]
+    }
+  }
+}
