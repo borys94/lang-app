@@ -1,8 +1,14 @@
 import styled from "styled-components";
 
-const Box = styled.div.attrs<any>(({success}: any) => ({
+const Box = styled.div.attrs<any>(({success, progress}: any) => ({
   style: {
-    backgroundColor: success ? "var(--bs-green)" : "white"
+    backgroundColor: success ? "#668cff" : "white",
+    ...(progress && progress === 1 ? {
+      backgroundColor: "var(--color-green)"
+    } : {}),
+    ...(progress && progress < 1 && progress > 0 ? {
+      backgroundColor: "var(--color-yellow)"
+    } : {})
   }
 }))<any>`
   position: relative;

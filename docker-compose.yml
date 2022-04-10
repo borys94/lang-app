@@ -2,7 +2,7 @@ version: '3'
 services:
   nginx:
     depends_on:
-      - auth_postgres
+      - training_postgres
       - client
     restart: always
     build:
@@ -19,7 +19,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=postgres_password
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg_auth_data:/var/lib/postgresql/data
   auth_service:
     build:
       dockerfile: Dockerfile.dev
@@ -37,7 +37,7 @@ services:
       - PGPORT=5432
       - JWT_KEY=secretKey
     restart: on-failure
-  
+
 
   training_postgres:
     image: 'postgres:latest'
@@ -57,6 +57,56 @@ services:
       - REDIS_PORT=6379
       - PGUSER=postgres
       - PGHOST=training_postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+      - JWT_KEY=secretKey
+    restart: on-failure
+
+
+  lesson_postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+    volumes:
+      - pg_lesson_data:/var/lib/postgresql/data
+  lesson_service:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api/lessons
+    volumes:
+      - /app/node_modules
+      - ./api/lessons:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=lesson_postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+      - JWT_KEY=secretKey
+    restart: on-failure
+
+
+  grammar_postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+    volumes:
+      - pg_grammar_data:/var/lib/postgresql/data
+  grammar_service:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api/grammar
+    volumes:
+      - /app/node_modules
+      - ./api/grammar:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=grammar_postgres
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
@@ -101,3 +151,6 @@ services:
 volumes:
     pgadmin:
     pgdata:
+    pg_auth_data:
+    pg_lesson_data:
+    pg_grammar_data:

@@ -23,7 +23,7 @@ const AddWordModal = ({
 
   const createSentence = async () => {
     setPending(true);
-    await api.addSentence(lessonId, value, translated);
+    await api.addWord(lessonId, value, translated, "sentence");
     setValue("");
     setTranlated("");
     setPending(false);

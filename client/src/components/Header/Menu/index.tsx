@@ -1,18 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { CSSTransition } from 'react-transition-group';
 
 import Header from "./Header";
 import Item from "./Item";
 import SubItem from "./SubItem";
 import Disclaimer from "./Disclaimer";
 
-import { CSSTransition } from 'react-transition-group';
+import api from "$services/api";
 
 
 const Container = styled.div`
-
-
   .menu-enter {
     transform: translateX(300px);
   }
@@ -53,6 +52,7 @@ const Background = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1;
 `
 
 const MenuContainer = styled.div`
@@ -60,6 +60,7 @@ const MenuContainer = styled.div`
   position: fixed;
   top: 50px;
   right: 0;
+  z-index: 1;
 `
 
 type Props = {
@@ -67,36 +68,45 @@ type Props = {
   onHide: () => void
 }
 
-export default ({ active, onHide }: Props) => (
-  <Container>
-    <CSSTransition
-      in={active}
-      timeout={300}
-      classNames="background"
-      unmountOnExit
-    >
-      <Background onClick={onHide} />
-    </CSSTransition>
-    <CSSTransition
-      in={active}
-      timeout={300}
-      classNames="menu"
-      unmountOnExit
-    >
-      <MenuContainer>
-        <Header />
-        <Item>Home</Item>
-        <Item>Lessons</Item>
-        <Item>Training</Item>
-        <Disclaimer />
-        <Item>Languages</Item>
-        <SubItem>English</SubItem>
-        <SubItem>Spanish</SubItem>
-        <SubItem>German</SubItem>
-        <Disclaimer />
-        <Item>Sign out</Item>
-      </MenuContainer>
-    </CSSTransition>
-  </Container>
-)
+export default ({ active, onHide }: Props) => {
+  const navigate = useNavigate();
+
+  const signOut = async () => {
+    await api.signOut();
+    navigate("/login")
+  }
+
+  return (
+    <Container>
+      <CSSTransition
+        in={active}
+        timeout={300}
+        classNames="background"
+        unmountOnExit
+      >
+        <Background onClick={onHide} />
+      </CSSTransition>
+      <CSSTransition
+        in={active}
+        timeout={300}
+        classNames="menu"
+        unmountOnExit
+      >
+        <MenuContainer>
+          <Header />
+          <Item>Home</Item>
+          <Item>Lessons</Item>
+          <Item>Training</Item>
+          <Disclaimer />
+          <Item>Languages</Item>
+          <SubItem>English</SubItem>
+          <SubItem>Spanish</SubItem>
+          <SubItem>German</SubItem>
+          <Disclaimer />
+          <Item onClick={signOut}>Sign out</Item>
+        </MenuContainer>
+      </CSSTransition>
+    </Container>
+  )
+  }
 

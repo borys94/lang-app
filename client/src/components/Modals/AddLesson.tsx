@@ -17,8 +17,8 @@ const AddLessonModal = ({
   const dispatch = useAppDispatch();
   const handleClose = () => close();
   const [lessonName, setLessonName] = useState("");
-  const [language, setLanguage] = useState("German");
-  const [level, setLevel] = useState("A1");
+  const [language, setLanguage] = useState("Spanish");
+  const [level, setLevel] = useState("B1");
   const [pending, setPending] = useState(false);
 
   const createLesson = async () => {
@@ -38,7 +38,7 @@ const AddLessonModal = ({
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Lesson name</Form.Label>
-            <Form.Control placeholder="Enter email" value={lessonName} onChange={(e) => setLessonName(e.target.value)} />
+            <Form.Control placeholder="Lesson name" value={lessonName} onChange={(e) => setLessonName(e.target.value)} />
           </Form.Group>
         </Form>
         <Form.Group className="mb-3" controlId="formLang">

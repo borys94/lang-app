@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import Menu from "./Menu";
+import Lang from "./Lang";
 
 const Container = styled.div`
   height: 50px;
@@ -37,6 +38,7 @@ export default () => {
         <Link to="/">
           <FontAwesomeIcon icon={faHouse} />
         </Link>
+        <Lang />
         <div onClick={() => setActiveMenu(!activeMenu)}>
           <FontAwesomeIcon icon={faBars} />
         </div>

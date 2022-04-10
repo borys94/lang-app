@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@lang-common/common": "^1.0.5",
     "@types/node": "^17.0.23",
     "body-parser": "*",
     "cookie-session": "^2.0.0",

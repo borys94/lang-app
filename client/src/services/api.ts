@@ -1,5 +1,6 @@
 import {CurrentUser} from "$types/user";
 import {Lessons, Lesson, LessonExtended} from "$types/lessons";
+import {LangType} from "$services/language";
 
 class Api {
   async signIn(email: string, password: string) {
@@ -23,16 +24,8 @@ class Api {
     return this.get("/api/vocabulary");
   }
 
-  // async addWord(value: string, translated: string) {
-  //   return this.post("/api/vocabulary/words", {
-  //     value,
-  //     translated
-  //   });
-  // }
-
-
-  async getLessons(): Promise<Lessons> {
-    return this.get("/api/lessons");
+  async getLessons(lang: LangType) {
+    return this.get(`/api/lessons?lang=${lang}`);
   }
 
   async addLesson(name: string, lang: string, level: string): Promise<Lesson> {
@@ -43,14 +36,15 @@ class Api {
     });
   }
 
-  async getLesson(id: string): Promise<LessonExtended> {
-    return this.get(`/api/lessons/${id}`);
+  async getLesson(id: string) {
+    return this.get(`/api/lessons/${id}/words`);
   }
 
-  async addWord(lessonId: number, value: string, translated: string): Promise<LessonExtended> {
-    return this.post(`/api/lessons/${lessonId}/vocabulary`, {
+  async addWord(lessonId: number, value: string, translated: string, type: string): Promise<LessonExtended> {
+    return this.post(`/api/lessons/${lessonId}`, {
       value,
-      translated
+      translated,
+      type
     });
   }
 
@@ -65,27 +59,99 @@ class Api {
     await this.delete(`/api/vocabulary/${id}`);
   }
 
-  async addWordToTraining(wordId: number): Promise<void> {
+  async addWordToTraining(userId: number, externalId: number, lang: LangType, type: string): Promise<void> {
     await this.post(`/api/training`, {
-      wordId
+      externalId,
+      userId,
+      lang,
+      type
     });
   }
 
-  async addSentenceToTraining(sentenceId: number): Promise<void> {
-    await this.post(`/api/training`, {
-      sentenceId
-    });
-  }
-
-  async getTraining(): Promise<void> {
+  async getTraining(): Promise<any> {
     return this.get(`/api/training/today`);
   }
 
-  async updateTraining(id: number, note: number) {
-    return this.put(`/api/training/${id}`, {
+  async updateTraining(id: number, wordId: number, note: number) {
+    return this.post(`/api/training/${id}/notes/${wordId}`, {
       note
     });
   }
+
+  async getWordsInLessons(isGrammar: boolean = false) {
+    return this.get(`/api/training/wordsInLessons?isGrammar=${isGrammar}`);
+  }
+
+  async getWordsInLesson(lessonId: number, isGrammar: boolean = false) {
+    return this.get(`/api/training/wordsInLessons/${lessonId}?isGrammar=${isGrammar}`);
+  }
+
+  async getGrammars(lang: string) {
+    return this.get(`/api/grammars?lang=${lang}`);
+  }
+
+  async getGrammar(id: string) {
+    return this.get(`/api/grammars/${id}`);
+  }
+
+  async addGrammar(name: string, lang: string, level: string, value: string) {
+    return this.post(`/api/grammars`, {
+      name,
+      lang,
+      level,
+      value
+    });
+  }
+
+  async editGrammar(grammarId: number, name: string, lang: string, level: string, value: string) {
+    return this.put(`/api/grammars/${grammarId}`, {
+      name,
+      lang,
+      level,
+      value
+    });
+  }
+
+  async addGrammarExample(grammarId: number, value: string, translated: string) {
+    return this.post(`/api/grammar/${grammarId}/examples`, {
+      translated,
+      value
+    });
+  }
+
+
+  async addExercise(grammarId: number, name: string) {
+    return this.post(`/api/grammar/${grammarId}/exercise`, {
+      name,
+    });
+  }
+
+  async editExercise(grammarId: number, excerciseId: number, name: string) {
+    return this.put(`/api/grammar/${grammarId}/exercise/${excerciseId}`, {
+      name,
+    });
+  }
+
+  async getExercises(grammarId: number) {
+    return this.get(`/api/grammar/${grammarId}/exercises`);
+  }
+
+  async addSubExercise(grammarId: number, exerciseId: string, value: string, answers: string) {
+    return this.post(`/api/grammar/${grammarId}/exercise/${exerciseId}`, {
+      value,
+      answers
+    });
+  }
+
+  async editSubExercise(grammarId: number, exerciseId: string, subExerciseId: string, value: string, answers: string) {
+    return this.put(`/api/grammar/${grammarId}/exercise/${exerciseId}/sub/${subExerciseId}`, {
+      value,
+      answers,
+    });
+  }
+
+  
+
 
 
 

@@ -10,12 +10,12 @@ export default () => {
 
   const signUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await Api.signUp(email, password);
+    await Api.signIn(email, password);
   }
 
   return (
     <div className="container">
-      <h1>Sign up</h1>
+      <h1>Sign in</h1>
       <div className="row">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">

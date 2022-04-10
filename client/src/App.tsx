@@ -6,11 +6,12 @@ import { useEffect } from "react";
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import OtherPage from './OtherPage';
-import Invoices from "./routes/invoices";
+import Lessons from "./routes/Lessons";
 import Home from "./routes/home";
 import Login from "./routes/login";
-import Admin from "./routes/admin";
 import Training from "./routes/training";
+import Lesson from "./routes/Lesson";
+import Grammar from "./routes/Grammar";
 
 import Header from "./components/Header"
 import api from "./services/api";
@@ -24,7 +25,7 @@ function App() {
     const fetchUser = async () => {
       const { currentUser } = await api.getCurrentUser();
       if (currentUser) {
-        dispatch(setUser(currentUser.email))
+        dispatch(setUser(currentUser))
       }
     }
 
@@ -38,10 +39,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="training" element={<Training />} />
-            <Route path="admin/*" element={<Admin />} />
             <Route path="login" element={<Login />} />
             <Route path="otherpage" element={<OtherPage />} />
-            <Route path="invoices" element={<Invoices />} />
+            <Route path="lessons" element={<Lessons />} />
+            <Route path="lessons/:lessonId" element={<Lesson />} />
+            <Route path="grammar/:grammarId" element={<Grammar />} />
+            
           </Routes>
         </div>
       </div>

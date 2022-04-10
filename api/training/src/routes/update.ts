@@ -1,29 +1,44 @@
 import express from 'express';
-import { requireAuth, currentUser } from '../../../common/middlewares';
+import { requireAuth, currentUser } from '@lang-common/common';
 
 import Training from "../db/training";
+import Notes from "../db/notes";
+import Words from "../db/words";
 
 const router = express.Router();
 
-const days = [[1, 3, 7], [2, 14, 30], [3, 20, 90]]
+const wsp = [0.5, 1, 2]
 
-router.put('/training/:trainingId', currentUser, requireAuth, async (req, res) => {
+router.post('/training/:trainingId/notes/:wordId', currentUser, requireAuth, async (req, res) => {
   const note = +req.body.note - 1;
+  const wordId = +req.params.wordId;
   const current = await Training.getById(req.params.trainingId);
-  // const lastNote = current.lastNote;
-
-  // const next = days[lastNote || 0][note]
-  // const nextDate = new Date();
-  // nextDate.setDate(nextDate.getDate() + next);
-  // nextDate.setHours(0, 0, 0, 0);
-  // console.log(
-  //   req.params.trainingId,
-  //   nextDate.toISOString(),
-  //   note
-  // )
-  // await Training.update(req.params.trainingId, nextDate.toISOString(), note)
+  const notes = await Notes.getByWordId(req.params.wordId);
+  let days = 2 * wsp[+req.body.note - 1];
+  for(let n in notes) {
+    days *= wsp[+n];
+  }
+  days = Math.ceil(days);
+  days = Math.max(1, Math.min(200, days));
+  const nextDate = new Date();
+  nextDate.setDate(nextDate.getDate() + days);
+  const destinatedDate = formatDate(nextDate);
+  await Notes.add(wordId, note);
+  await Words.updateNextDate(wordId, destinatedDate);
 
   res.status(200).send({});
 });
 
 export { router as updateTrainingRouter };
+
+function padTo2Digits(num: number) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date: Date) {
+  return [
+    date.getFullYear(),
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+  ].join('-');
+}

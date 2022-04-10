@@ -22,3 +22,10 @@ export interface LessonExtended {
   vocabulary: Vocabulary,
   sentences: Sentences
 }
+
+export interface Grammar {
+  id: number;
+  name: string;
+  lang: string;
+  level: string;
+}

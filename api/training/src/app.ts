@@ -3,12 +3,12 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
-import { NotFoundError } from '../../common/errors';
-import { errorHandler } from '../../common/middlewares';
+import { errorHandler, NotFoundError } from '@lang-common/common';
 
 import { addWordRouter } from "./routes/addWord";
 import { updateTrainingRouter } from "./routes/update";
 import { getTodayTrainingRouter } from "./routes/getToday";
+import { getWordsInLessonRouter } from "./routes/getWordsInLesson";
 
 const app = express();
 app.set('trust proxy', 1);
@@ -24,7 +24,7 @@ app.use(
 app.use(addWordRouter);
 app.use(updateTrainingRouter);
 app.use(getTodayTrainingRouter);
-
+app.use(getWordsInLessonRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

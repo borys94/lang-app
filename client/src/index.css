@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --color-blue: #0084ff;
+  --color-green: #44bec7;
+  --color-yellow: #ffc300;
+  --color-red: #fa3c4c;
+  --color-purple: #d696bb;
+  --color-dark: #666666;
+}
+
+table {
+
+}
+
+table tr {
+
+}
+
+table td {
+  padding: 0 10px;
+}
