@@ -15,5 +15,13 @@ declare module '@ckeditor/ckeditor5-react' {
       onFocus?: (event: Event, editor: ClassicEditor) => void;
       onError?: (event: Event, editor: ClassicEditor) => void;
   }>
-  export { CKEditor };
+  export { CKEditor, CKEditorContext };
+}
+
+declare module "@ckeditor/ckeditor5-source-editing/src/sourceediting" {
+  
+}
+
+declare module "html-to-react" {
+  
 }

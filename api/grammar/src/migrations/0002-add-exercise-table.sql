@@ -9,7 +9,7 @@ CREATE TABLE exercise (
 CREATE TABLE sub_exercise (
   sub_exercise_id SERIAL PRIMARY KEY,
   exercise_id INT REFERENCES exercise (exercise_id) NOT NULL,
-  value VARCHAR(200) NOT NULL,
+  value VARCHAR(500) NOT NULL,
   answers VARCHAR(200)[] NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

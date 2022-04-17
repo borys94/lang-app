@@ -41,6 +41,7 @@ router.post(
       {
         id: existingUser.id,
         email: existingUser.email,
+        role: existingUser.email === "email72@test.pl" ? "admin" : "user"
       },
       process.env.JWT_KEY!
     );

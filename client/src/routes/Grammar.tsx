@@ -13,13 +13,14 @@ import EditGrammarModal from "$components/Modals/EditGrammar";
 import Exercises from "$components/Grammar/Exercises";
 
 import Box from "$components/common/Box";
+import Loader from "$components/Loader";
 
 import {Lesson, Vocabulary, Sentences} from "$types/lessons";
 import { useAppSelector } from '$hooks/index';
 import LanguageService from "$services/language";
 
-
 export default function Grammar() {
+  const [loading, setLoading] = useState(false);
   const [grammar, setGrammar] = useState({} as any)
   const [trainingWords, setTrainingWords] = useState([] as any[])
   const userId = useAppSelector(state => state.user.id)
@@ -28,10 +29,12 @@ export default function Grammar() {
   useEffect(() => {
     const fetchLesson = async () => {
       if (params.grammarId) {
+        setLoading(true);
         const { grammar } = await api.getGrammar(params.grammarId);
         const trainingWords = await api.getWordsInLesson(+params.grammarId, true);
         setGrammar(grammar)
         setTrainingWords(trainingWords)
+        setLoading(false);
       }
     }
     fetchLesson();
@@ -67,7 +70,11 @@ export default function Grammar() {
     lesson: {} as Lesson,
     vocabulary: [] as Vocabulary,
     sentences: [] as Sentences,
-  })
+  });
+
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <div>

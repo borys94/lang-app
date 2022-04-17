@@ -38,6 +38,12 @@ export default function Home() {
               <span>Next lesson: Czas teraźniejszy</span>
             </div>
           </Card>
+          <Card onClick={() => navigate("exercises")}>
+            <FontAwesomeIcon size="3x" icon={faBriefcase} />
+            <div>
+              <b>Exercises</b>
+            </div>
+          </Card>
         </div>
       </div>
     </div>

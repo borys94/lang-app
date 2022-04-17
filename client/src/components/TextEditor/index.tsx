@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+// import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+
+
+
 interface Props {
   value: string;
   onChange: (data: string) => void
@@ -12,7 +16,7 @@ export default class TextEditor extends Component<Props> {
         return (
             <div className="App">
                 <CKEditor
-                    editor={ ClassicEditor }
+                    editor={ ClassicEditor as any }
                     data={this.props.value}
                     onReady={ (editor: any) => {
                         // You can store the "editor" and use when it is needed.

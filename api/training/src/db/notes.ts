@@ -7,8 +7,8 @@ interface NoteModel {
 }
 
 export default class Notes {
-  static async getByWordId(id: string) {
-    return (await Database.client.query<NoteModel[]>(
+  static async getByWordId(id: number) {
+    return (await Database.client.query<NoteModel>(
       "SELECT * FROM notes WHERE word_id = $1 ORDER BY created_at DESC LIMIT 6", 
       [id]
     )).rows;

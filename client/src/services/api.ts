@@ -150,7 +150,45 @@ class Api {
     });
   }
 
-  
+  async getAllExercises() {
+    return this.get(`/api/exercises`);
+  }
+
+  async getExercise(id: string) {
+    return this.get(`/api/exercises/${id}`);
+  }
+
+  async getSubExercises(id: string) {
+    return this.get(`/api/exercises/${id}/subExercise`);
+  }
+
+  async getSubExercise(id: string, subId: string) {
+    return this.get(`/api/exercises/${id}/subExercise/${subId}`);
+  }
+
+  async createExercise(title: string, lang: string, level: string) {
+    return this.post(`/api/exercises`, {
+      title,
+      lang,
+      level,
+    });
+  }
+
+  async createSubExercise(exerciseId: string, title: string, text: string, answers: string) {
+    return this.post(`/api/exercises/${exerciseId}`, {
+      text,
+      title,
+      answers
+    });
+  }
+
+  async updateSubExercise(id: string, subId: number, title: string, text: string, answers: string) {
+    return this.put(`/api/exercises/${id}/subExercise/${subId}`, {
+      text,
+      title,
+      answers
+    });
+  }
 
 
 

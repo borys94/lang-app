@@ -22,13 +22,14 @@ code {
 }
 
 table {
-
+  border-collapse: collapse;
 }
 
 table tr {
-
+  border: 1px solid black;
 }
 
 table td {
   padding: 0 10px;
+  border: 1px solid black;
 }

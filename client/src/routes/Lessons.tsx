@@ -2,16 +2,17 @@ import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap"
 
-import { useAppSelector } from '$hooks/index';
+import { useAppSelector, useAppDispatch } from '$hooks/index';
 import AddLessonModal from "$components/Modals/AddLesson";
 import AddGrammarModal from "$components/Modals/AddGrammar";
 import LessonLevelDropdown from "$components/LessonLevelDropdown";
 import Box from "$components/common/Box";
+import Loader from "$components/Loader";
+
 import LanguageService from "$services/language";
 import { setLessons } from "$stores/lessons";
 import { setGrammars} from "$stores/grammars";
 
-import { useAppDispatch } from '$hooks/index';
 import api from "$services/api";
 import LevelService, { LevelType } from "$services/level";
 
@@ -37,22 +38,29 @@ export default function Lessons() {
 
   useEffect(() => {
     const fetchLessons = async () => {
+      setLoading(true);
       const data = await api.getWordsInLessons();
       const { lessons } = await api.getLessons(LanguageService.get());
       const { grammars } = await api.getGrammars(LanguageService.get());
       dispatch(setLessons(lessons))
       dispatch(setGrammars(grammars))
       setWordsInLesson(data)
+      setLoading(false);
     }
 
     fetchLessons();
   }, [])
 
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addGrammarModal, setAddGrammarModal] = useState(false);
   
   const [wordsInLesson, setWordsInLesson] = useState([] as any);
   const [level, setLevel] = useState(LevelService.get() as LevelType);
+
+  if (loading) {
+    return <Loader />
+  }
 
   return (
     <div>

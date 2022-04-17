@@ -3,7 +3,7 @@ import {useState} from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import api from "$services/api";
 import { useAppDispatch } from '$hooks/index';
-import {addLesson} from "$stores/lessons";
+import TextEditor from "../TextEditor";
 
 interface Props {
   show: boolean,
@@ -37,7 +37,8 @@ const AddExerciseModal = ({
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Name</Form.Label>
-            <Form.Control placeholder="name" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
+            <TextEditor value={exerciseName} onChange={setExerciseName} />
+            {/* <Form.Control placeholder="name" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} /> */}
           </Form.Group>
         </Form>
       </Modal.Body>

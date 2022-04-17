@@ -1,16 +1,23 @@
 import Database from "../database";
 
 interface WordsModel {
-  id: number;
+  word_id: number;
   user_id: number;
   lang: string;
   lesson_id: number;
+  next_date: string;
   created_at: string;
   external_id: number;
   type: string;
 }[]
 
 export default class Words {
+  static async getAll() {
+    return (await Database.client.query<WordsModel>(
+      "SELECT * FROM words ORDER BY word_id", 
+    )).rows;
+  }
+
   static async getByTrainingId(id: string) {
     return (await Database.client.query<WordsModel>(
       "SELECT * FROM words WHERE training_id = $1", 

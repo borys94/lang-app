@@ -18,7 +18,7 @@ export default class Grammar {
 
   static async getByLang(lang: string) {
     return (await Database.client.query<LessonsModel>(
-      `SELECT * FROM grammar WHERE lang = $1`,
+      `SELECT * FROM grammar WHERE lang = $1 ORDER BY name`,
       [lang]
     )).rows;
   }

@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface User {
   email: string;
-  id: number
+  id: number;
+  role: string;
 }
 
 export const userStore = createSlice({
@@ -10,11 +11,13 @@ export const userStore = createSlice({
   initialState: {
     email: "",
     id: 0,
+    role: ""
   },
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
       state.email = action.payload.email
       state.id = action.payload.id
+      state.role = action.payload.role
     }
   },
 })

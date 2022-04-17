@@ -2,6 +2,7 @@ import {useState} from "react";
 
 import { Button, Modal, Form, Alert } from "react-bootstrap";
 import api from "$services/api";
+import TextEditor from "../TextEditor";
 
 interface Props {
   show: boolean,
@@ -21,6 +22,7 @@ const AddSubExerciseModal = ({
   const [answers, setAnswers] = useState("");
   const [pending, setPending] = useState(false);
   const [errors, setErrors] = useState<any[]>([]);
+  const [plainText, setPlainText] = useState(false);
 
   const addExercise = async () => {
     setPending(true);
@@ -50,7 +52,14 @@ const AddSubExerciseModal = ({
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Value</Form.Label>
-            <Form.Control placeholder="value" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
+            <Button onClick={() => setPlainText(!plainText)}>toogle editor</Button>
+            {plainText ? 
+              <Form.Control as="textarea" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} />
+              :
+              <TextEditor value={exerciseName} onChange={setExerciseName} />
+            }
+            
+            {/* <Form.Control placeholder="value" value={exerciseName} onChange={(e) => setExerciseName(e.target.value)} /> */}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Answers</Form.Label>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 const Box = styled.div.attrs<any>(({success, progress}: any) => ({
   style: {
@@ -14,7 +14,7 @@ const Box = styled.div.attrs<any>(({success, progress}: any) => ({
   position: relative;
   border-radius: 3px;
   padding: 5px 10px;
-  cursor: pointer;
+  
   display: flex;
   margin: 5px 0;
 
@@ -27,7 +27,10 @@ const Box = styled.div.attrs<any>(({success, progress}: any) => ({
   align-items: center;
 
   :hover {
-    background-color: #fbfbfb;
+    ${props => props.hoverable !== false ? css`
+      background-color: #fbfbfb;
+      cursor: pointer;
+    ` : ""}
   }
 `;
 
