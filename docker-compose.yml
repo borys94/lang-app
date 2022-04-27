@@ -14,6 +14,13 @@ services:
     image: 'redis:latest'
 
 
+  api_postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+    volumes:
+      - pg_api_data:/var/lib/postgresql/data
+
   auth_postgres:
     image: 'postgres:latest'
     environment:
@@ -125,6 +132,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes: 
+      - mongo_exercise_data:/data/db
     restart: always
   mongo-express:
     image: mongo-express
@@ -190,3 +199,4 @@ volumes:
     pg_grammar_data:
     pg_exercise_data:
     mongo_exercise_data:
+    pg_api_data:

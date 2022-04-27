@@ -33,12 +33,19 @@ export default function SubExercise({
   
 
   const [answers, setAnswers] = useState<string[]>([]);
+  const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [widths, setWidths] = useState<string[]>([]);
 
   const setAnswer = (index: number, value: string) => {
     answers[index] = value;
     setAnswers([...answers])
   }
+
+  useEffect(() => {
+    const answers = subExercise.answers.split(", ")
+    console.log(answers)
+    setCorrectAnswers(answers)
+  }, [])
 
   let i = -1;
 
@@ -52,21 +59,21 @@ export default function SubExercise({
               i++;
               
               return ((ind: number) => {
-                const correct = showResults && compare(subExercise.answers[ind], answers[ind]);
-                const incorrect = showResults && !compare(subExercise.answers[ind], answers[ind]) && answers[ind] !== undefined;
+                const correct = showResults && compare(correctAnswers[ind], answers[ind]);
+                const incorrect = showResults && !compare(correctAnswers[ind], answers[ind]) && answers[ind] !== undefined;
                 const noAnswer = showResults && answers[ind] === undefined;
                 return (
                   <>
-                    {correct && <InputAnswer correct>{subExercise.answers[ind]}</InputAnswer>}
+                    {correct && <InputAnswer correct>{correctAnswers[ind]}</InputAnswer>}
                     {incorrect && (
                       <>
                         <InputAnswer incorrect>{answers[ind]}</InputAnswer>
                         {" "}
-                        <InputAnswer correct>{subExercise.answers[ind]}</InputAnswer>
+                        <InputAnswer correct>{correctAnswers[ind]}</InputAnswer>
                       </>
                     )}
                     {noAnswer && (
-                      <InputAnswer noAnswer>{subExercise.answers[ind]}</InputAnswer>
+                      <InputAnswer noAnswer>{correctAnswers[ind]}</InputAnswer>
                     )}
                   </>
                 )

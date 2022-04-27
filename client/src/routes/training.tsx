@@ -29,19 +29,28 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const GROUP = 100;
+
 export default function Training() {
   const [training, setTraining] = useState([] as any);
   const [notes, setNotes] = useState([] as any);
   useEffect(() => {
     const fetchTraining = async () => {
       const training = await api.getTraining();
-      const reversed = training.map((t: any) => ({
-        ...t,
-        translated: t.value,
-        value: t.translated,
-        reversed: true,
-      }))
-      setTraining([...shuffle(training as any), ...shuffle(reversed as any)])
+      let destinatedWords = []
+      for(let i=0; i<training.length; i+=GROUP) {
+        const arr = training.slice(i, i+GROUP);
+        const reversed = arr.map((t: any) => ({
+          ...t,
+          translated: t.value,
+          value: t.translated,
+          reversed: true,
+        }))
+        destinatedWords.push(...shuffle(arr));
+        destinatedWords.push(...shuffle(reversed));
+      }
+      
+      setTraining(destinatedWords)
     }
 
     fetchTraining();

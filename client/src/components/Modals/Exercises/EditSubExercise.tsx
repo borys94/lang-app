@@ -30,7 +30,7 @@ const AddExerciseModal = ({
       setExerciseContent(subExercise.text);
       setTitle(subExercise.title);
       const answers = JSON.stringify(subExercise.answers)
-      setAnswers(`{${answers.substring(1, answers.length - 1)}}`);
+      setAnswers(subExercise.answers);
     }
   }, [show])
 

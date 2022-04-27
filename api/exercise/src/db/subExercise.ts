@@ -53,7 +53,7 @@ const subExerciseSchema = new mongoose.Schema(
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
-        ret.answers = ret.answers.split(",").map((answer: string) => answer.trim())
+        // ret.answers = ret.answers.split(",").map((answer: string) => answer.trim())
       }
     }
   }

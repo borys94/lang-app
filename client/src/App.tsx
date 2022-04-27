@@ -1,10 +1,8 @@
 import './App.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import OtherPage from './OtherPage';
 import Lessons from "./routes/Lessons";
 import Home from "./routes/home";
@@ -15,34 +13,16 @@ import Grammar from "./routes/Grammar";
 import Exercises from "./routes/Exercises";
 import Exercise from "./routes/Exercise";
 import SubExercise from "./routes/SubExercise";
-
-import Header from "./components/Header"
-import api from "./services/api";
-
-import { useDispatch } from 'react-redux';
-import { setUser } from './stores/user'
+import AuthLayout from "./routes/AuthLayout";
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { currentUser } = await api.getCurrentUser();
-      if (currentUser) {
-        dispatch(setUser(currentUser))
-      }
-    }
-
-    fetchUser();
-  })
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
-        <div style={{marginTop: "50px"}} className="container">
-          <Routes>
+        <Routes>
+          <Route element={<AuthLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="training" element={<Training />} />
-            <Route path="login" element={<Login />} />
             <Route path="otherpage" element={<OtherPage />} />
             <Route path="lessons" element={<Lessons />} />
             <Route path="lessons/:lessonId" element={<Lesson />} />
@@ -50,9 +30,9 @@ function App() {
             <Route path="exercises" element={<Exercises />} />
             <Route path="exercises/:exerciseId" element={<Exercise />} />
             <Route path="exercises/:exerciseId/subExercise/:subExerciseId" element={<SubExercise />} />
-            
-          </Routes>
-        </div>
+          </Route>
+          <Route path="login" element={<Login />} />
+        </Routes>
       </div>
     </BrowserRouter>
   );
