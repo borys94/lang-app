@@ -1,13 +1,19 @@
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form } from "react-bootstrap"
+import styled from "@emotion/styled";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
 
 import { useAppSelector, useAppDispatch } from '$hooks/index';
-import AddLessonModal from "$components/Modals/AddLesson";
+import { AddLessonDialog } from "$components/Lessons/AddLessonDialog";
 import AddGrammarModal from "$components/Modals/AddGrammar";
 import LessonLevelDropdown from "$components/LessonLevelDropdown";
 import Box from "$components/common/Box";
 import Loader from "$components/Loader";
+import LessonsList from "$components/Lessons/LessonsList";
+import AdminWords from "$components/Admin/Words";
 
 import LanguageService from "$services/language";
 import { setLessons } from "$stores/lessons";
@@ -15,6 +21,10 @@ import { setGrammars} from "$stores/grammars";
 
 import api from "$services/api";
 import LevelService, { LevelType } from "$services/level";
+
+const Container = styled.div`
+  width: 100%;
+`
 
 export default function Lessons() {
   const navigate = useNavigate();
@@ -63,30 +73,21 @@ export default function Lessons() {
   }
 
   return (
-    <div>
-      <div>
-        <Button onClick={() => setShowModal(true)}>Add lesson</Button>
+    <Container>
+      <Stack direction="row" spacing={1} justifyContent="space-between" alignItems="center">
         <LessonLevelDropdown level={level} setLevel={setLevel}/>
-      </div>
-      <AddLessonModal show={showModal} close={() => setShowModal(false)} />
+        <span>
+          <IconButton aria-label="add" onClick={() => setShowModal(true)}>
+            <AddIcon />
+          </IconButton>
+        </span>
+      </Stack>
+      {/* <Button variant="contained" color="primary" onClick={() => setShowModal(true)}>Add lesson</Button> */}
+        
+      <AddLessonDialog open={showModal} handleClose={() => setShowModal(false)} />
       <AddGrammarModal show={addGrammarModal} close={() => setAddGrammarModal(false)} />
       <div className="row">
-        {lessons.filter(lesson => lesson.level === level).map((lesson: any) => {
-          return (
-          <div className="col-md-6 col-lg-4" key={lesson.lesson_id} onClick={() => goToLesson(lesson.lesson_id)}>
-            <Box progress={+((wordsInLesson.find((word: any) => word.lesson_id === lesson.lesson_id) || {}).count || 0) / +lesson.words_count}>
-              <span style={{marginRight: "10px"}}>{lesson.name}</span><b>{lesson.level}</b>
-              <span style={{marginLeft: "auto"}}>
-                {lesson.added}
-                {" "}
-                {(wordsInLesson.find((word: any) => word.lesson_id === lesson.lesson_id) || {}).count || 0}
-                \
-                {lesson.words_count}
-              </span>
-            </Box>
-          </div>
-        )
-          })}
+        <LessonsList lessons={lessons.filter(lesson => lesson.level === level)} wordsInLesson={wordsInLesson} />
       </div>
       <h2>Grammar</h2>
       <Button onClick={() => setAddGrammarModal(true)}>Add grammar</Button>
@@ -95,17 +96,11 @@ export default function Lessons() {
           <div className="col-md-6 col-lg-4" key={grammar.grammar_id} onClick={() => goToGrammar(grammar.grammar_id)}>
             <Box>
               <span style={{marginRight: "10px"}}>{grammar.name}</span><b>{grammar.level}</b>
-              {/* <span style={{marginLeft: "auto"}}>
-                {lesson.added}
-                {" "}
-                {(wordsInLesson.find((word: any) => word.lesson_id === lesson.lesson_id) || {}).count}
-                \
-                {lesson.words_count}
-              </span> */}
             </Box>
           </div>
         ))}
       </div>
-    </div>
+      
+    </Container>
   );
 }

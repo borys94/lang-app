@@ -1,18 +1,21 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { ThemeProvider } from '@mui/material/styles';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import store from './stores'
+import theme from "./theme";
 import { Provider } from 'react-redux'
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <Provider store={store}>
-    <App tab="home" />
+    <ThemeProvider theme={theme}>
+      <App tab="home" />
+    </ThemeProvider>
   </Provider>
 );
 

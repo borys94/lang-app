@@ -47,7 +47,7 @@ export default function Training() {
           reversed: true,
         }))
         destinatedWords.push(...shuffle(arr));
-        destinatedWords.push(...shuffle(reversed));
+        // destinatedWords.push(...shuffle(reversed));
       }
       
       setTraining(destinatedWords)
@@ -73,7 +73,7 @@ export default function Training() {
       setTraining([...training.filter((t: any) => t.word_id !== training[0].word_id || t.reversed !== training[0].reversed)]);
     }
 
-    if (thisWords.length > 1) {
+    if (thisWords.length >= 1) {
       const id = training[0].training_id;
       const wordId = training[0].word_id;
       const n = Math.min(...trainingNotes.filter(trainingNote => {

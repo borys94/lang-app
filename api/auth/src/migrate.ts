@@ -4,15 +4,15 @@ import path from "path"
 
 import Database from "./database"
 
-async function migrate() {
-  const client = await Database.connect();
+export async function migrate() {
+  const client = await Database.client;
   
   let existingMigrations: string[] = [];
   try {
     let result = await client.query("SELECT * FROM migrations");
     existingMigrations = result.rows.map(r => r.file)
   } catch {
-    console.warn("First migration");
+    // console.warn("First migration");
   }
   
   // Get outstanding migrations
@@ -39,7 +39,7 @@ async function migrate() {
     await client.query("COMMIT");
     // Don't forget to release the client!
     client.release();
-    process.exit(0)
+    // process.exit(0)
   } catch (err) {
     // Oops, something went wrong, rollback!
     await client.query("ROLLBACK");
@@ -66,4 +66,4 @@ async function getOutstandingMigrations(migrations: string[]) {
   return sql;
 }
 
-migrate();
+// migrate();

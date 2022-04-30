@@ -2,21 +2,23 @@ import {CurrentUser} from "$types/user";
 import {Lessons, Lesson, LessonExtended} from "$types/lessons";
 import {LangType} from "$services/language";
 
+
+
 class Api {
   async signIn(email: string, password: string) {
-    return this.post("/api/users/signin", { email, password });
+    return this.post("/api/api/users/signin", { email, password });
   }
 
   async signUp(email: string, password: string) {
-    return this.post("/api/users/signup", { email, password });
+    return this.post("/api/api/users/signup", { email, password });
   }
 
   async signOut(): Promise<void> {
-    return this.post("/api/users/signout", {});
+    return this.post("/api/api/users/signout", {});
   }
 
   async getCurrentUser(): Promise<CurrentUser> {
-    return this.get("/api/users/currentUser");
+    return this.get("/api/api/users/currentUser");
   }
 
 

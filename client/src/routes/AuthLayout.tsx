@@ -2,12 +2,21 @@ import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '$hooks/index';
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
+import styled from "@emotion/styled";
 
-import Header from "$components/Header";
+import Header from "$components/Navbar";
 import Loader from "$components/Loader";
 
 import api from "$services/api";
 import { setUser } from '$stores/user'
+
+const Container = styled.div`
+  width: 800px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 15px auto 0;
+`;
 
 const AuthLayout = () => {
   const dispatch = useDispatch()
@@ -39,9 +48,9 @@ const AuthLayout = () => {
     return  (
       <>
         <Header />
-        <div style={{marginTop: "50px"}} className="container">
+        <Container>
           <Outlet />
-        </div>
+        </Container>
       </>
     )
   }
