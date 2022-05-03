@@ -15,7 +15,7 @@ const prepare = () => {
   // fakeEle.style.height = '0';
 
   // We copy some styles from the textbox that effect the width
-  const textboxEle = document.getElementById('textbox');
+  // const textboxEle = document.getElementById('textbox');
 
   // Get the styles
   // const styles = window.getComputedStyle(textboxEle);
@@ -43,7 +43,6 @@ const getWidth = function (value: string) {
   fakeEle.innerHTML = value;
 
   const fakeEleStyles = window.getComputedStyle(fakeEle);
-  console.log(fakeEleStyles.width)
   return fakeEleStyles.width;
   // textboxEle.style.width = fakeEleStyles.width;
 };

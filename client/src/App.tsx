@@ -3,15 +3,13 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import OtherPage from './OtherPage';
-import Lessons from "./routes/Lessons";
+import WordCategories from "./components/WordCategories";
 import Home from "./routes/home";
-import Login from "./routes/login";
+import Login from "./components/Auth/Login";
 import Training from "./routes/training";
 import Lesson from "./routes/Lesson";
-import Grammar from "./routes/Grammar";
-import Exercises from "./routes/Exercises";
-import Exercise from "./routes/Exercise";
-import SubExercise from "./routes/SubExercise";
+import Grammars from "./components/Grammars";
+import Grammar from "./components/Grammars/Grammar";
 import AuthLayout from "./routes/AuthLayout";
 
 function App() {
@@ -23,12 +21,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="training" element={<Training />} />
             <Route path="otherpage" element={<OtherPage />} />
-            <Route path="lessons" element={<Lessons />} />
+            <Route path="wordCategories" element={<WordCategories />} />
             <Route path="lessons/:lessonId" element={<Lesson />} />
+            <Route path="grammar" element={<Grammars />} />
             <Route path="grammar/:grammarId" element={<Grammar />} />
-            <Route path="exercises" element={<Exercises />} />
-            <Route path="exercises/:exerciseId" element={<Exercise />} />
-            <Route path="exercises/:exerciseId/subExercise/:subExerciseId" element={<SubExercise />} />
           </Route>
           <Route path="login" element={<Login />} />
         </Routes>

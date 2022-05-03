@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '$hooks/index';
+import { useAppSelector } from '$hooks/index';
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import styled from "@emotion/styled";
@@ -20,7 +20,6 @@ const Container = styled.div`
 
 const AuthLayout = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate();
 
   const [pending, setPending] = useState(true);
   const isLogged = useAppSelector(state => {

@@ -3,14 +3,14 @@ import {useParams} from "react-router-dom";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import api from "$services/api";
 
 import AddGrammarExampleModal from "$components/Modals/AddGrammarExample";
 import EditGrammarModal from "$components/Modals/EditGrammar";
 
-import Exercises from "$components/Grammar/Exercises";
+import Exercises from "$components/GrammarExercises";
 
 import Box from "$components/common/Box";
 import Loader from "$components/Loader";
@@ -44,15 +44,6 @@ export default function Grammar() {
     setEditModal(false);
     const { grammar } = await api.getGrammar(params.grammarId!);
     setGrammar(grammar)
-  }
-
-  const removeWord = async (id: number) => {
-    await api.removeWord(id);
-    setLesson({
-      lesson: lesson.lesson,
-      vocabulary: lesson.vocabulary.filter(word => word.id !== id),
-      sentences: lesson.sentences,
-    })
   }
 
   const addWordToTraining = async (example: any) => {
@@ -119,11 +110,6 @@ const LessonHeader = styled.div`
   align-items: center;
   margin: 10px 0;
 `;
-
-const RemoveWord = styled.div`
-  position: absolute;
-  right: 10px;
-`
 
 const AddWord = styled.div`
   position: absolute;

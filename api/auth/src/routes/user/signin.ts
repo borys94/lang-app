@@ -2,7 +2,9 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { validateRequest, BadRequestError } from '@lang-common/common';
+import { BadRequestError } from "../../errors"
+import {validateRequest} from "../../middlewares"
+import type { UserPayload} from "../../middlewares"
 
 import { Password } from '../../services/password';
 import database from "../../database";
@@ -40,8 +42,8 @@ router.post(
       {
         id: existingUser.id,
         email: existingUser.email,
-        role: existingUser.email === "email72@test.pl" ? "admin" : "user"
-      },
+        role: existingUser.id === 1 ? "admin" : "user"
+      } as UserPayload,
       process.env.JWT_KEY!
     );
 

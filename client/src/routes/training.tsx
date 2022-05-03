@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import api from "$services/api";
 import FlashCard from "$components/FlashCard"
@@ -9,7 +9,7 @@ function shuffle(array: any[]) {
   let currentIndex = array.length,  randomIndex;
 
   // While there remain elements to shuffle...
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
 
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);

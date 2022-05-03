@@ -1,9 +1,9 @@
 import express from 'express';
-import { currentUser } from '@lang-common/common';
+import { currentUser } from '../../middlewares';
 
 const router = express.Router();
 
-router.get('/currentuser', currentUser, (req, res) => {
+router.get('/currentuser', (req, res) => {
   res.send({ currentUser: req.currentUser || null });
 });
 

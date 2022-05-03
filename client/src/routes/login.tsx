@@ -1,60 +1,71 @@
 import React, {useState} from "react"
 import styled from "styled-components"
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import {Form} from "react-bootstrap"
-import api from "$services/api";
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
 import { setUser } from '$stores/user'
+import useRequest from "$hooks/useRequest";
 
-import Button from "$components/common/Button"
-
-export default () => {
+const LoginRoute = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await api.signIn(email, password);
-    const { currentUser } = await api.getCurrentUser();
-    if (currentUser) {
+  const [doRequest, errors] = useRequest({
+    url: '/api/api/users/signIn',
+    method: 'post',
+    body: {
+      email,
+      password,
+    },
+    onSuccess: (currentUser) => {
       dispatch(setUser(currentUser))
+      navigate("/")
     }
-    navigate("/")
+  });
+
+  const signIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await doRequest();
   }
 
   return (
     <Container>
       <Content>
         <h1>Zaloguj się</h1>
-        <div className="row">
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={signUp}>
-              Zaloguj się
-            </Button>
-          </Form>
-        </div>
+        <FormGroup>
+          <FormControl sx={{ m: 1}}>
+            <TextField
+              value={email}
+              error={!!errors?.find(error => error.field === "email")}
+              helperText={errors && errors.find(error => error.field === "email")?.message}
+              onChange={(e) => setEmail(e.target.value)}
+              label="Email"
+              variant="standard"
+            />
+          </FormControl>
+          <FormControl sx={{ m: 1}}>
+            <TextField
+              type="password"
+              value={password}
+              error={!!errors?.find(error => error.field === "password")}
+              helperText={errors && errors.find(error => error.field === "password")?.message}
+              onChange={(e) => setPassword(e.target.value)}
+              label="Password"
+              variant="standard"
+            />
+          </FormControl>
+          <Button variant="contained" onClick={signIn}>Zaloguj się</Button>
+        </FormGroup>
       </Content>
     </Container>
-
   )
 }
 
@@ -64,7 +75,6 @@ const Container = styled.div`
   overflow-y: auto;
   top: 0;
   width: 100%;
-  padding: 30px;
   position: fixed;
 `
 
@@ -83,3 +93,5 @@ const Content = styled.div`
     width: 100%;
   }
 `
+
+export default LoginRoute;

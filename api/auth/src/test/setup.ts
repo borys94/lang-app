@@ -4,22 +4,34 @@ import "./helpers";
 
 beforeAll(async () => {
   await database.connect("auth_test_postgres");
+  await dropAllTables()
   await migrate();
 });
 
 afterAll(async () => {
-  await database.client.query(`
-    DROP TABLE migrations;
-    DROP TABLE users;
-    DROP TABLE words;
-    DROP TABLE word_categories;
-  `);
+  await dropAllTables();
 })
 
 beforeEach(async () => {
-  await database.client.query(`
-    TRUNCATE users CASCADE;
-    TRUNCATE words CASCADE;
-    TRUNCATE word_categories CASCADE;
-  `);
+  const queries = (await database.client.query(`
+    SELECT
+      'TRUNCATE "' || tablename || '" CASCADE;' as query
+    from
+      pg_tables WHERE schemaname = 'public' AND tablename != 'migrations';
+  `)).rows;
+  for (let q of queries) {
+    await database.client.query(q.query);
+  }
 });
+
+const dropAllTables = async () => {
+  const queries = (await database.client.query(`
+    SELECT
+      'DROP TABLE IF EXISTS "' || tablename || '" CASCADE;' as query
+    from
+      pg_tables WHERE schemaname = 'public';
+  `)).rows;
+  for (let q of queries) {
+    await database.client.query(q.query);
+  }
+}

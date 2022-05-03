@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import api from "$services/api";
 
@@ -12,7 +12,7 @@ import AddSentenceModal from "$components/Modals/AddSentence";
 import Box from "$components/common/Box";
 
 import {Lesson, Vocabulary, Sentences} from "$types/lessons";
-import { useAppSelector, useAppDispatch } from '$hooks/index';
+import { useAppSelector } from '$hooks/index';
 import LanguageService from "$services/language";
 
 
@@ -33,15 +33,6 @@ export default function Lessons() {
     }
     fetchLesson();
   }, [])
-
-  const removeWord = async (id: number) => {
-    await api.removeWord(id);
-    setLesson({
-      lesson: lesson.lesson,
-      vocabulary: lesson.vocabulary.filter(word => word.id !== id),
-      sentences: lesson.sentences,
-    })
-  }
 
   const addWordToTraining = async (word: any) => {
     await api.addWordToTraining(userId, word.word_id, LanguageService.get(), word.type);
@@ -119,11 +110,6 @@ const LessonHeader = styled.div`
   align-items: center;
   margin: 10px 0;
 `;
-
-const RemoveWord = styled.div`
-  position: absolute;
-  right: 10px;
-`
 
 const AddWord = styled.div`
   position: absolute;

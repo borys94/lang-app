@@ -3,8 +3,7 @@ import React, {useState} from "react"
 import {Form, Button} from "react-bootstrap"
 import Api from "../services/api";
 
-
-export default () => {
+const RegisterRoute = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,6 +38,7 @@ export default () => {
         </Form>
       </div>
     </div>
-
   )
 }
+
+export default RegisterRoute

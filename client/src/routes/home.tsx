@@ -24,10 +24,17 @@ export default function Home() {
           </Card>
         </div>
         <div className="col-md-6">
-          <Card onClick={() => navigate("lessons")}>
+          <Card onClick={() => navigate("wordCategories")}>
             <FontAwesomeIcon size="3x" icon={faBook} />
             <div>
-              <b>Lessons</b>
+              <b>Words</b>
+              <span>Next lesson: Czas teraźniejszy</span>
+            </div>
+          </Card>
+          <Card onClick={() => navigate("grammar")}>
+            <FontAwesomeIcon size="3x" icon={faBook} />
+            <div>
+              <b>Grammar</b>
               <span>Next lesson: Czas teraźniejszy</span>
             </div>
           </Card>

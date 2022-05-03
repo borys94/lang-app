@@ -4,7 +4,7 @@ import { useState } from 'react';
 type Props = {
   url: string,
   method: "get" | "post" | "delete" | "put",
-  body: any,
+  body ?: any,
   onSuccess: (data: any) => void
 }
 
@@ -13,7 +13,11 @@ type Errors = {
   message: string
 }[]
 
-export default ({ url, method, body, onSuccess }: Props) => {
+type Response = {
+
+}
+
+export default ({ url, method, body, onSuccess }: Props): [Function, Errors | null] => {
   const [errors, setErrors] = useState<Errors | null>(null);
 
   const doRequest = async (props = {}) => {
@@ -31,5 +35,5 @@ export default ({ url, method, body, onSuccess }: Props) => {
     }
   };
 
-  return { doRequest, errors };
+  return [doRequest, errors ];
 };

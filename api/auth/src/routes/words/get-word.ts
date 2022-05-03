@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
 import { requireAuth } from '../../middlewares';
 import { BadRequestError } from '../../errors';
 
@@ -16,6 +15,7 @@ router.get(
       "select * from words WHERE word_id = $1",
       [req.params.wordId]
     );
+
     if (!word) {
       throw new BadRequestError("Word not found")
     }

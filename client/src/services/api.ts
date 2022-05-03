@@ -1,8 +1,6 @@
 import {CurrentUser} from "$types/user";
-import {Lessons, Lesson, LessonExtended} from "$types/lessons";
+import { Lesson, LessonExtended} from "$types/lessons";
 import {LangType} from "$services/language";
-
-
 
 class Api {
   async signIn(email: string, password: string) {

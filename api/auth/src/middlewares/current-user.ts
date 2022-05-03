@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-interface UserPayload {
+export type UserRole = "user" | "admin";
+
+export interface UserPayload {
   id: number;
   email: string;
+  role: UserRole;
 }
 
 declare global {

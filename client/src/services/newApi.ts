@@ -1,6 +1,4 @@
-import {CurrentUser} from "$types/user";
-import {Lessons, Lesson, LessonExtended} from "$types/lessons";
-import {LangType} from "$services/language";
+import {Lesson, LessonExtended} from "$types/lessons";
 import axios from "axios"
 
 class Api {
@@ -10,11 +8,6 @@ class Api {
       lang,
       level
     });
-    // return this.post("/api/api/words/categories", {
-    //   name,
-    //   lang,
-    //   level
-    // });
   }
 
   async getLesson(id: string) {
